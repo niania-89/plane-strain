@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mechanics III – Unit 2: Strain</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<style>:root{--navy:#12305a;--lb:#e6f0fb;--ac:#2a7fd4}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.6 system-ui,Segoe UI,Arial,sans-serif;color:#1c2733;background:#fff}
+header{position:sticky;top:0;background:var(--navy);color:#fff;padding:8px 16px;display:flex;flex-wrap:wrap;align-items:center;gap:12px;z-index:5}
+header nav{display:flex;flex-wrap:wrap;gap:4px}
+header a{color:#cfe3fa;text-decoration:none;padding:4px 8px;border-radius:6px;font-size:14px}
+header a:hover,header a.on{background:var(--ac);color:#fff}
+#menu{display:none;margin-left:auto}
+main{max-width:900px;margin:auto;padding:16px}
+section{display:none}section.on{display:block}
+h1{color:var(--navy)}h2{color:var(--navy);border-bottom:2px solid var(--lb)}
+.btn,button{background:var(--navy);color:#fff;border:0;border-radius:8px;padding:8px 14px;cursor:pointer;text-decoration:none;display:inline-block;font-size:15px}
+.btn.alt{background:var(--ac)}
+input,select{padding:6px;margin:3px;border:1px solid #9ab;border-radius:6px;max-width:110px}
+.dg{width:100%;max-width:440px;background:#f7fbff;border:1px solid #cde;border-radius:8px;font-size:11px}
+.card{background:var(--lb);border-radius:10px;padding:12px;margin:12px 0}
+.res{background:#fff;border-left:4px solid var(--ac);padding:6px 10px;white-space:pre-wrap;font-family:ui-monospace,monospace;font-size:14px}
+.tip{background:#fff6dc;border-left:4px solid #e0a800;padding:6px 10px}
+.row{display:flex;flex-wrap:wrap;gap:12px}.row>*{flex:1 1 280px}
+.bar{background:var(--lb);height:14px;border-radius:7px}.bar i{display:block;height:100%;background:var(--ac);border-radius:7px;width:0}
+table{border-collapse:collapse;width:100%}td,th{border:1px solid #cde;padding:6px;font-size:14px}th{background:var(--lb)}
+.ex{border:1px solid #cde;border-radius:8px;margin:8px 0;padding:6px 12px}.ex summary{cursor:pointer;font-weight:600;color:var(--navy)}
+.done{color:#1a7f3c}
+@media(max-width:700px){#menu{display:block}header nav{display:none;width:100%;flex-direction:column}header nav.open{display:flex}}
+</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+</head><body>
+<header><b>Mechanics III · Unit 2: Strain</b><button id="menu">☰</button>
+<nav id="nav"><a href="#home">Home</a><a href="#fund">Fundamentals</a><a href="#lav">Length·Area·Volume</a><a href="#mohr">Mohr's Circle</a><a href="#gauge">Strain Gauges</a><a href="#ss">Stress–Strain</a><a href="#calc">Calculators</a><a href="#exam">Worked Examples</a><a href="#prac">Practice</a><a href="#form">Formulas</a><a href="#tut">Tutorial 2</a></nav></header>
+<main>
+
+<section id="home"><h1>Unit 2: Strain</h1>
+<p>Learn strain from scratch: what it is, how to draw Mohr's circle, how strain gauges work, and how stress and strain connect. Each section: simple idea → formula → example → diagram → exam tip.</p>
+<p><a class="btn" href="#fund">Start Learning</a> <a class="btn alt" href="#mohr">Mohr's Circle tutorial</a> <a class="btn alt" href="#calc">Calculators</a></p>
+<h2>Learning objectives</h2><ul>
+<li>Define direct and shear strain; find changes in length, area, volume.</li>
+<li>Draw Mohr's circle for strain: any plane, principal strains/planes, max shear.</li>
+<li>Explain strain-gauge installation and measurement.</li>
+<li>Apply Young's modulus, Poisson's ratio; convert stress ↔ strain in plane stress.</li></ul>
+<h2>Your progress</h2><div class="bar"><i id="pbar"></i></div><p id="ptext"></p><div id="plist"></div></section>
+
+<section id="fund"><h1>Strain Fundamentals</h1>
+<h2>What is strain?</h2>
+<p><b>Simple idea:</b> stress is the <i>force per area</i> a material feels; strain is <i>how much it stretches or distorts</i> as a fraction of its size. Pull a metal rod and it gets longer; twist a shaft and its surface lines tilt.</p>
+<p>Strain has <b>no units</b> because it is length ÷ length (or an angle in radians). Small values are quoted in microstrain: $1\,\mu\varepsilon=10^{-6}$. <b>Elastic</b> deformation disappears when the load is removed; <b>plastic</b> (permanent) deformation does not.</p>
+<h2>Direct strain</h2>
+<p>$$\varepsilon=\frac{\Delta L}{L}$$ $\Delta L$ = change in length, $L$ = original length. Tension → positive, compression → negative.</p>
+<svg viewBox="0 0 420 110" class="dg"><rect x="20" y="20" width="200" height="22" fill="#9cc"/><text x="20" y="14">Before: L</text><rect x="20" y="70" width="240" height="22" fill="#2a5a9a"/><rect x="220" y="70" width="40" height="22" fill="#e87"/><text x="270" y="86">After: L+ΔL (ΔL in red)</text></svg>
+<p><b>Example:</b> 250 mm bar shortens 0.16 mm: $\varepsilon=-0.16/250=-640\times10^{-6}$ (compressive).</p>
+<h2>Shear strain</h2>
+<p>Shear changes the <b>angle</b> between two lines that were perpendicular. <b>Engineering shear strain</b> $\gamma$ = the change in that angle (radians). Shear <i>stress</i> $\tau$ is a force effect; $\gamma$ is the resulting distortion, linked by $\tau=G\gamma$.</p>
+<p>⚠ <b>Tensor</b> shear strain is $\varepsilon_{xy}=\gamma_{xy}/2$. This site always uses engineering $\gamma$; the Mohr circle plots $\gamma/2$.</p>
+<svg viewBox="0 0 300 140" class="dg" id="shearsvg"><polygon id="shp" fill="#9cc" stroke="#124"/><text x="10" y="132">Drag the slider:</text></svg>
+<input type="range" id="shsl" min="0" max="30" value="10"> <span id="shv"></span>
+</section>
+
+<section id="lav"><h1>Change in Length, Area &amp; Volume</h1>
+<p><b>Length:</b> $\Delta L=\varepsilon L$. Example: $\varepsilon=800\mu\varepsilon$, $L=2$ m → $\Delta L=1.6$ mm.</p>
+<p><b>Area:</b> a rectangle $a\times b$ becomes $a(1+\varepsilon_x)\times b(1+\varepsilon_y)$. Expanding: $\Delta A/A=\varepsilon_x+\varepsilon_y+\varepsilon_x\varepsilon_y\approx\varepsilon_x+\varepsilon_y$ (product is tiny, so ignored — an <b>approximation</b>).</p>
+<p><b>Volume:</b> $\varepsilon_v=\Delta V/V\approx\varepsilon_x+\varepsilon_y+\varepsilon_z$. In plane stress, $\sigma_z=0$ but $\varepsilon_z=-\frac{\nu}{E}(\sigma_x+\sigma_y)=-\frac{\nu}{1-\nu}(\varepsilon_x+\varepsilon_y)$.</p>
+<svg viewBox="0 0 400 160" class="dg"><rect x="20" y="30" width="100" height="80" fill="#9cc" opacity=".6"/><rect id="ar" x="20" y="30" width="100" height="80" fill="none" stroke="#c33" stroke-width="2"/><text x="20" y="130">Blue: original · Red: deformed (exaggerated)</text></svg>
+<input type="range" id="arsl" min="-20" max="40" value="20"> <span id="arv"></span>
+<p>Use Calculator 3 for numbers. <b>Exam tip:</b> state "small-strain approximation" when using the sums.</p></section>
+
+<section id="mohr"><h1>How to Draw Mohr's Circle for Strain – Step by Step</h1>
+<p><b>Stress vs strain circle:</b> same method, but the vertical axis is <b>γ/2</b> (tensor shear), not γ. Horizontal axis = ε. Example: $\varepsilon_x=400,\ \varepsilon_y=100,\ \gamma_{xy}=300$ (all ×10⁻⁶).</p>
+<div class="row"><svg id="msvg" viewBox="0 0 400 300" class="dg"></svg><div><h3 id="mt"></h3><p id="mx"></p></div></div>
+<p><button id="mprev">◀ Previous</button> <button id="mnext">Next ▶</button> <button id="mreplay">⟲ Replay</button> <label><input type="checkbox" id="mann" checked> Annotations</label></p>
+<p class="tip"><b>Exam tip:</b> Axes → centre C → plot A(εx, +γ/2) and B(εy, −γ/2) → join (centre on the line) → draw circle. Angles on the circle are <b>2θ</b>; physical angles are half.</p>
+<h3>Physical element vs circle</h3>
+<p>$\tan 2\theta_p=\gamma_{xy}/(\varepsilon_x-\varepsilon_y)=300/300=1\Rightarrow 2\theta_p=45^\circ,\ \theta_p=22.5^\circ$ (ccw from x for $\varepsilon_1$). Max-shear planes are 45° from principal planes (90° on the circle).</p>
+<svg viewBox="0 0 400 130" class="dg"><g transform="translate(80,65)"><rect x="-35" y="-35" width="70" height="70" fill="#cde" stroke="#124"/><text y="55" x="-50">Original (x,y)</text></g><g transform="translate(260,65) rotate(-22.5)"><rect x="-35" y="-35" width="70" height="70" fill="#cde" stroke="#124"/><line x1="-50" x2="50" stroke="#c33"/><line y1="-50" y2="50" stroke="#2a5a9a"/></g><text x="215" y="125">Principal element (22.5° ccw): ε₁ red, ε₂ blue</text></svg></section>
+
+<section id="gauge"><h1>Strain Gauges</h1>
+<p>A <b>bonded resistance strain gauge</b> is a thin metal foil <b>grid</b> on a plastic <b>backing</b>, glued (<b>adhesive</b>) to the <b>specimen</b>, with <b>leads</b> soldered to the grid. When the part stretches, the grid stretches: it gets longer and thinner, so its resistance rises. It measures strain <i>along the grid direction only</i>. Used on aircraft wings, fuselage, landing gear, test rigs.</p>
+<svg viewBox="0 0 400 130" class="dg"><rect x="60" y="50" width="200" height="50" fill="#f3e9c6" stroke="#888"/><text x="65" y="45">Backing</text><polyline points="80,60 240,60 240,68 80,68 80,76 240,76 240,84 80,84 80,92 240,92" fill="none" stroke="#b60" stroke-width="2"/><text x="270" y="70">Grid (sensing)</text><line x1="80" y1="60" x2="40" y2="30" stroke="#444"/><text x="10" y="25">Leads</text><rect x="40" y="100" width="260" height="20" fill="#bbb"/><text x="305" y="115">Specimen (adhesive between)</text></svg>
+<h2>Installation steps</h2><ol><li>Clean &amp; degrease surface</li><li>Mark location</li><li>Align gauge with measuring direction</li><li>Apply adhesive</li><li>Press gauge on</li><li>Cure</li><li>Solder leads</li><li>Connect to instrument (bridge)</li><li>Apply load</li><li>Record reading</li></ol>
+<p><b>Alignment matters:</b> a gauge misaligned by angle $\phi$ reads $\varepsilon_\phi=\varepsilon_x\cos^2\phi+\varepsilon_y\sin^2\phi+\gamma_{xy}\sin\phi\cos\phi$, not the strain you wanted.</p>
+<h2>Measurement</h2>
+<p>$$GF=\frac{\Delta R/R}{\varepsilon}\quad\Rightarrow\quad\varepsilon=\frac{\Delta R/R}{GF}$$ $GF$ = gauge factor (≈2 for foil), $R$ = original resistance, $\Delta R$ = change. A <b>Wheatstone bridge</b> turns the tiny $\Delta R$ into a measurable voltage. <b>Quarter</b>: 1 active gauge; <b>half</b>: 2; <b>full</b>: 4 (more output, temperature compensation).</p>
+<svg viewBox="0 0 220 150" class="dg"><polygon points="110,15 200,75 110,135 20,75" fill="none" stroke="#124" stroke-width="2"/><text x="40" y="45">R1</text><text x="160" y="45">R2</text><text x="40" y="115">R3</text><text x="150" y="115">Rg</text><text x="85" y="80">Vout</text></svg>
+<h3>Gauge-factor calculator</h3>
+<p>GF <input id="g1" type="number" value="2.1"> R (Ω) <input id="g2" type="number" value="120"> ΔR (Ω) <input id="g3" type="number" value="0.05"></p><p id="gout" class="res"></p>
+<h3>Rosette strain at any angle</h3><p>Rectangular rosette gauges at 0°, 45°, 90° read ε₁,ε₂,ε₃. Then $\varepsilon_x=\varepsilon_1$, $\varepsilon_y=\varepsilon_3$, $\gamma_{xy}=2\varepsilon_2-\varepsilon_1-\varepsilon_3$ — feed these into the Mohr circle.</p></section>
+
+<section id="ss"><h1>Applying Stress–Strain Equations</h1>
+<p><b>Young's modulus</b> $E=\sigma/\varepsilon$ (slope of the straight part of the σ–ε graph; steel ≈ 200 GPa is stiff, rubber is flexible). <b>Poisson's ratio</b> $\nu=-\varepsilon_{lat}/\varepsilon_{long}$: stretch it lengthwise and it thins sideways.</p>
+<svg viewBox="0 0 300 130" class="dg"><line x1="30" y1="110" x2="280" y2="110" stroke="#000"/><line x1="30" y1="110" x2="30" y2="10" stroke="#000"/><polyline points="30,110 130,30 200,22 260,40" fill="none" stroke="#2a5a9a" stroke-width="2"/><text x="60" y="55">slope = E</text><text x="250" y="125">ε</text><text x="8" y="14">σ</text></svg>
+<h2>Plane stress (isotropic, linear elastic, $\sigma_z=0$)</h2>
+<p>$$\varepsilon_x=\frac{\sigma_x-\nu\sigma_y}{E},\ \ \varepsilon_y=\frac{\sigma_y-\nu\sigma_x}{E},\ \ \gamma_{xy}=\frac{\tau_{xy}}{G},\ \ G=\frac{E}{2(1+\nu)}$$
+$$\sigma_x=\frac{E}{1-\nu^2}(\varepsilon_x+\nu\varepsilon_y),\ \ \sigma_y=\frac{E}{1-\nu^2}(\varepsilon_y+\nu\varepsilon_x),\ \ \tau_{xy}=G\gamma_{xy}$$
+⚠ These are <b>plane stress</b> equations ($\sigma_z=0$, $\varepsilon_z\ne0$). Plane strain ($\varepsilon_z=0$) uses different ones.</p>
+<h3>Worked: stress from strain</h3><p>$E=200$ GPa $=200000$ MPa, $\nu=0.3$, $\varepsilon_x=500\mu$, $\varepsilon_y=200\mu$, $\gamma=300\mu$.<br>$E/(1-\nu^2)=200000/0.91=219\,780$ MPa; $G=200000/2.6=76\,923$ MPa.<br>$\sigma_x=219780(500+0.3\cdot200)\times10^{-6}=\mathbf{123.1}$ MPa<br>$\sigma_y=219780(200+0.3\cdot500)\times10^{-6}=\mathbf{76.9}$ MPa<br>$\tau_{xy}=76923\cdot300\times10^{-6}=\mathbf{23.1}$ MPa</p>
+<h3>Worked: strain from stress</h3><p>$\sigma_x=100,\sigma_y=50,\tau=30$ MPa.<br>$\varepsilon_x=(100-0.3\cdot50)/200000=\mathbf{425\mu}$; $\varepsilon_y=(50-0.3\cdot100)/200000=\mathbf{100\mu}$; $\gamma=30/76923=\mathbf{390\mu}$.<br>Stress→strain divides by E (direct); strain→stress needs the $1/(1-\nu^2)$ factor because both strains affect each stress.</p></section>
+
+<section id="calc"><h1>Interactive Calculators</h1>
+<div class="card"><h3>1. Direct strain</h3>L <input id="a1" type="number" value="250"> ΔL <input id="a2" type="number" value="0.16"><p id="ao" class="res"></p></div>
+<div class="card"><h3>2. Change in length</h3>L <input id="b1" type="number" value="2000"> ε (µε) <input id="b2" type="number" value="800"><p id="bo" class="res"></p></div>
+<div class="card"><h3>3. Area &amp; volume strain</h3>a <input id="c1" type="number" value="50"> b <input id="c2" type="number" value="50"> c <input id="c3" type="number" value="250"> εx,εy,εz (µε) <input id="c4" type="number" value="200"> <input id="c5" type="number" value="200"> <input id="c6" type="number" value="-640"><p id="co" class="res"></p></div>
+<div class="card"><h3>4. Mohr's circle for strain</h3>εx <input id="m1" type="number" value="400"> εy <input id="m2" type="number" value="100"> γxy <input id="m3" type="number" value="300"> (µε)<svg id="csvg" viewBox="0 0 400 300" class="dg"></svg><p id="mo" class="res"></p></div>
+<div class="card"><h3>5. Stress–strain</h3>Mode <select id="s0"><option value="A">A: strains → stresses</option><option value="B">B: stresses → strains</option></select> E <input id="s1" type="number" value="200"><select id="su"><option>GPa</option><option>MPa</option></select> ν <input id="s2" type="number" value="0.3"><br><span id="sl">x,y (µε), γ (µε)</span> <input id="s3" type="number" value="500"> <input id="s4" type="number" value="200"> <input id="s5" type="number" value="300"><p id="so" class="res"></p></div></section>
+
+<section id="exam"><h1>How to Solve Strain Exam Questions</h1><p>Every answer: <b>Understand → Formula → Substitute → Solve → Diagram → Final answer → Exam tip.</b></p><div id="exlist"></div></section>
+
+<section id="prac"><h1>Practice Mode</h1>
+<p>Level <select id="plv"><option>Easy</option><option>Medium</option><option>Hard</option></select> <button id="pnew">New question</button> · Score: <b id="psc">0/0</b></p>
+<div class="card"><p id="pq"></p><input id="pa" type="number" step="any"> <button id="pchk">Check</button> <button id="phint">Hint</button><p id="pfb"></p></div></section>
+
+<section id="form"><h1>Formula Sheet</h1><table><tr><th>Topic</th><th>Formula</th><th>Use / units</th></tr>
+<tr><td>Direct strain</td><td>$\varepsilon=\Delta L/L$</td><td>dimensionless; ΔL, L same unit</td></tr>
+<tr><td>Change in length</td><td>$\Delta L=\varepsilon L$</td><td>length unit</td></tr>
+<tr><td>Shear strain</td><td>$\gamma$ = angle change</td><td>rad (engineering)</td></tr>
+<tr><td>Area strain</td><td>$\Delta A/A\approx\varepsilon_x+\varepsilon_y$</td><td>small strain only</td></tr>
+<tr><td>Volume strain</td><td>$\varepsilon_v\approx\varepsilon_x+\varepsilon_y+\varepsilon_z$</td><td>small strain only</td></tr>
+<tr><td>Poisson</td><td>$\nu=-\varepsilon_{lat}/\varepsilon_{long}$</td><td>dimensionless</td></tr>
+<tr><td>Young</td><td>$E=\sigma/\varepsilon$</td><td>Pa (GPa)</td></tr>
+<tr><td>Shear modulus</td><td>$G=E/[2(1+\nu)]$</td><td>Pa</td></tr>
+<tr><td>Mohr centre</td><td>$C=(\varepsilon_x+\varepsilon_y)/2$</td><td>on ε axis</td></tr>
+<tr><td>Mohr radius</td><td>$R=\sqrt{((\varepsilon_x-\varepsilon_y)/2)^2+(\gamma_{xy}/2)^2}$</td><td>= γmax/2</td></tr>
+<tr><td>Principal strains</td><td>$\varepsilon_{1,2}=C\pm R$</td><td></td></tr>
+<tr><td>Max shear</td><td>$\gamma_{max}=2R$</td><td>engineering</td></tr>
+<tr><td>Orientation</td><td>$\tan2\theta_p=\gamma_{xy}/(\varepsilon_x-\varepsilon_y)$</td><td>θp physical</td></tr>
+<tr><td>Strain at angle</td><td>$\varepsilon_\theta=C+\frac{\varepsilon_x-\varepsilon_y}{2}\cos2\theta+\frac{\gamma_{xy}}{2}\sin2\theta$</td><td>θ ccw from x</td></tr>
+<tr><td>Gauge factor</td><td>$GF=(\Delta R/R)/\varepsilon$</td><td>dimensionless</td></tr>
+<tr><td>Plane stress</td><td>$\varepsilon_x=(\sigma_x-\nu\sigma_y)/E$, $\varepsilon_y=(\sigma_y-\nu\sigma_x)/E$, $\gamma=\tau/G$</td><td></td></tr>
+<tr><td>Inverse</td><td>$\sigma_x=\frac{E}{1-\nu^2}(\varepsilon_x+\nu\varepsilon_y)$, $\sigma_y=\frac{E}{1-\nu^2}(\varepsilon_y+\nu\varepsilon_x)$, $\tau=G\gamma$</td><td></td></tr></table></section>
+<section id="tut"><h1>Tutorial 2 – Step-by-Step Solutions</h1>
+<p>Answers match your lecturer's answer sheet. Figures were not readable, so gauge directions follow the sheet's answers (flagged where used). Gauges are numbered anticlockwise unless stated.</p>
+<div class="card"><h3>Rosette formulas (gauge 1 along x)</h3>
+<p><b>Rectangular (0°,45°,90°):</b> εx=ε1, εy=ε3, γxy=2ε2−ε1−ε3.<br>
+<b>Delta / star (0°,60°,120°):</b> εx=ε1, εy=[2(ε2+ε3)−ε1]/3, γxy=2(ε2−ε3)/√3.<br>
+<b>Then:</b> C=(εx+εy)/2, R=√[((εx−εy)/2)²+(γ/2)²], ε1,2=C±R, tan2θp=γ/(εx−εy). Stress: σ1=E/(1−ν²)(ε1+νε2), σ2=E/(1−ν²)(ε2+νε1). Brittle→Rankine, ductile→Tresca.</p></div><details class="ex"><summary>T2.1 Bar strains, area, volume</summary><p><b>Given: L=250 mm, a=50 mm, ΔL=−0.16 mm, Δa=+0.01 mm.</b></p><p>(a) Axial ε = ΔL/L = −0.16/250 = <b>−640 µε</b>. Lateral ε = 0.01/50 = <b>+200 µε</b> (sides grow when squeezed: Poisson effect).</p><p>(b) Area A=50²=2500 mm². ΔA/A ≈ εx+εy = 400 µ → ΔA = 400×10⁻⁶×2500 = <b>1 mm² increase</b>.</p><p>(c) εv ≈ εx+εy+εz = 200+200−640 = −240 µ. V=2500×250=625 000 mm³ → ΔV = −240×10⁻⁶×625 000 = <b>−150 mm³ (decrease)</b>.</p><p class="tip">Tip: give the sign of every strain; compression shortens but widens.</p></details><details class="ex"><summary>T2.2 Principal strains from rosettes</summary><p><b>Method: get εx, εy, γxy from the rosette, then use the Mohr circle formulas (see 'Rosette formulas' above).</b></p><p><b>(a) Rectangular</b> 592, 308, −432: εx=592, εy=−432, γ=2(308)−592−(−432)=456. C=80; R=√(512²+228²)=560.5. ε1=C+R=<b>640 µε</b>, ε2=C−R=<b>−480 µε</b>. tan2θ=456/1024 → θp=12.05° → ε1 at <b>12° ccw</b> from gauge 1; ε2 at 78° cw.</p><p><b>(b) Star</b> 730, 680, 190: εx=730; εy=[2(680+190)−730]/3=336.7; γ=2(680−190)/√3=565.8. C=533.3; R=√(196.7²+282.9²)=344.6. ε1=<b>878</b>, ε2=<b>189 µε</b>. θp=27.5°. Gauges 2,3 are clockwise from gauge 1 in this figure, so ε1 is <b>28° cw</b>, ε2 62° ccw.</p><p><b>(c) Delta</b> 250, −100, 50: εx=250; εy=[2(−100+50)−250]/3=−116.7; γ=2(−100−50)/√3=−173.2. C=66.7; R=√(183.3²+86.6²)=202.7. ε1=<b>269</b>, ε2=<b>−136 µε</b>. θp=−12.6° → ε1 <b>13° cw</b>, ε2 77° ccw.</p><p class="tip">Tip: the angle sign depends on how the gauges are numbered in the figure. Check it and say ccw/cw on your sketch.</p></details><details class="ex"><summary>T2.3 Delta rosette, then rectangular rosette</summary><p><b>Gauge 1 is a principal direction (ε=100), gauge 2 reads 10 (60° away).</b></p><p>Principal strains ε1=100 and ε2=p. Strain at 60°: ε=C+D cos120° where C=(100+p)/2, D=(100−p)/2.</p><p>10 = (100+p)/2 − (100−p)/4 → 40 = 100+3p → p = −20 µε.</p><p>Gauge 3 is at 120°: cos240° = cos120° = −½, so ε3 = <b>10 µε</b> (same as gauge 2).</p><p>Rectangular rosette, gauge 4 ∥ gauge 1: gauge 4 = ε1 = <b>100</b>; gauge 5 (45°) = C = (100−20)/2 = <b>40</b>; gauge 6 (90°) = ε2 = <b>−20 µε</b>.</p><p class="tip">Tip: a delta rosette has equal readings at 60° and 120° when gauge 1 is principal.</p></details><details class="ex"><summary>T2.4 Simple tension: E and ν</summary><p><b>σ=50 MPa along gauge 1; ε1=250 µ, ε3=−80 µ.</b></p><p>E = σ/ε = 50/(250×10⁻⁶) = 200 000 MPa = <b>200 GPa</b>.</p><p>ν = −ε_lat/ε_long = 80/250 = <b>0.32</b>.</p><p>Gauge 2 at 45°: ε = C = (250−80)/2 = <b>85 µε</b>.</p><p class="tip">Tip: for a 45° gauge in a rectangular rosette the reading is the average of ε1 and ε3 only when shear is zero (as here).</p></details><details class="ex"><summary>T2.5 Plate under biaxial stress</summary><p><b>σ along x=150 MPa (diameter CC), σ along y=85 MPa (diameter AA), E=70 GPa, ν=0.33. (Directions inferred from the given answers; check the figure.)</b></p><p>εx=(150−0.33×85)/70000=1742 µ; εy=(85−0.33×150)/70000=507 µ; εz=−0.33(235)/70000=−1108 µ.</p><p>(a) CC=200×1742µ=<b>0.348 mm</b>; AA=200×507µ=<b>0.101 mm</b>; BB at 45°: ε=(εx+εy)/2=1124.6µ (the 45° diagonal sees the average of the two principal strains) → <b>0.225 mm</b>.</p><p>(b) Sides: 350×1742µ=<b>0.610 mm</b>, 350×507µ=<b>0.177 mm</b>; thickness 18×(−1108µ)=<b>−0.020 mm</b>.</p><p>(c) ΔA≈(εx+εy)A=2249µ×122 500=<b>276 mm²</b>; ΔV≈(1742+507−1108)µ×2 205 000=<b>2520 mm³</b>.</p><p class="tip">Tip: diameter changes use the strain in that direction. The 45° strain is C of the Mohr circle.</p></details><details class="ex"><summary>T2.6 Delta rosette on brittle part</summary><p><b>ε1=150, ε2=−400, ε3=600 µ; gauge 2 normal to axis; E=200 GPa, ν=0.3.</b></p><p>εx=150; εy=[2(−400+600)−150]/3=83.3; γ=2(−400−600)/√3=−1154.7. C=116.7; R=√(33.3²+577.4²)=578.3.</p><p>(a) ε1=<b>695</b>, ε2=<b>−462 µε</b>. σ=E/(1−ν²)(ε1+νε2): 219 780×(695−138.5)µ=<b>122 MPa</b>; 219 780×(−462+208.5)µ=<b>−56 MPa</b>.</p><p>(b) θp=½tan⁻¹(−1154.7/66.7)=−43.4° (ε1 is 43.4° cw of gauge 1). Axis is ⟂ gauge 2, i.e. 30° cw of gauge 1 → ε1 is <b>13° cw</b> from axis, ε2 is <b>77° ccw</b>.</p><p>(c) σ_axis = (122−56)/2 + (122+56)/2 · cos(2×13.4°) = 33 + 89×0.893 = <b>113 MPa</b>.</p><p>(d) Brittle → Rankine (largest |principal stress|). Tension: 1.5×122=<b>184 MPa</b>; compression: 1.5×56=<b>83 MPa</b> (σY,t and σY,c).</p><p class="tip">Tip: brittle = Rankine, ductile = Tresca. Show which criterion you used.</p></details><details class="ex"><summary>T2.7 Rectangular rosette on casting</summary><p><b>ε1=800, ε2=800, ε3=−400 µ; E=102 GPa, ν=0.34, σY=350 MPa; gauge 2 normal to axis.</b></p><p>E/(1−ν²)=102 000/0.8844=115 330 MPa; G=102 000/2.68=38 060 MPa.</p><p>(a) σ1=115 330(800−0.34×400)µ=<b>77 MPa</b>; σ3=115 330(−400+0.34×800)µ=<b>−15 MPa</b>. εx=800, εy=−400, γ=2(800)−800+400=1200 → τ=Gγ=45.7 MPa. σ2 = (σ1+σ3)/2 + τ = 30.9+45.7 = <b>77 MPa</b>.</p><p>(b) Axis ⟂ gauge 2 (45°), so the section normal to the axis is at 135° from gauge 1: σ = 30.9 + 45.7cos270° + 45.7sin270° = <b>−15 MPa</b>; shear magnitude = D = 45.7 MPa → <b>±46 MPa</b> (sign by your convention; answer sheet gives −46).</p><p>(c) Principal: C=30.9, R=√(45.7²+45.7²)=64.6 → σ1=95.5, σ2=−33.7. Rankine: SF=350/95.5=<b>3.6</b>. θp=22.5°; the critical plane is <b>22.5° cw</b> from the axis.</p><p class="tip">Tip: for the shear on a plane, state the sign convention you use.</p></details><details class="ex"><summary>T2.8 Mild steel plate, tension and shear</summary><p><b>Face area 120×1.5=180 mm²; forces 20, 30, 10 kN; σY=280 MPa; E=200 GPa, ν=0.3.</b></p><p>(a) σx=20 000/180=<b>111</b>, σy=30 000/180=<b>167</b>, τ=10 000/180=<b>±56 MPa</b> (sketch the element with arrows).</p><p>(b) C=139; R=√(27.8²+55.6²)=62.1 → σ1=201, σ2=77, σ3=0. Mild steel is ductile → <b>Tresca</b>: max difference = σ1−σ3 = 201 → SF=280/201=<b>1.39</b>.</p><p>(c) εx=(111−0.3×167)/200 000=305.6µ; εy=(167−0.3×111)/200 000=667µ; G=76 923 MPa → γ=55.6/76 923=722µ. Gauges at ±45°: 486±361 → <b>125</b> and <b>847</b>; gauge along x: <b>305 µε</b> (readings 125, 305, 847).</p><p>(d) Diagonal=120√2=169.7 mm. ΔL=ε L: 847µ→<b>0.144 mm</b>; 125µ→<b>0.021 mm</b>.</p><p class="tip">Tip: Tresca uses σ1−σ3 with σ3=0 in plane stress, not just σ1−σ2.</p></details><details class="ex"><summary>T2.9 Plate with lateral restraint</summary><p><b>σx=100 MPa, E=280 GPa, ν=0.33; εy=0 (breadth fixed), σz=0.</b></p><p>(a) εy=(σy−νσx)/E=0 → σy=νσx=0.33×100=<b>33 MPa</b>.</p><p>(b) Before: εz=−νσx/E=−0.33×100/280 000=<b>−118 µε</b>. After: εz=−ν(σx+σy)/E=−0.33×133/280 000=<b>−157 µε</b>.</p><p class="tip">Tip: write 'strain = 0' as the condition that gives the unknown stress.</p></details><details class="ex"><summary>T2.10 Cold-forming in a rigid die</summary><p><b>σy applied (compression); walls give εx=0; free in z (σz=0); σY=470 MPa (C), ν=0.345.</b></p><p>Walls: εx=0 → σx=ν(σy+σz)=νσy. So σx=0.345σy (compressive, same sign).</p><p>Stresses: σy (largest), σx=0.345σy, σz=0. Ductile → <b>Tresca</b>: largest difference = |σy−σz| = σy.</p><p>(a) Yield when σy=<b>470 MPa (C)</b>. (b) Base pressure = <b>470 MPa</b>; wall pressure σx=0.345×470=<b>162 MPa</b>.</p><p class="tip">Tip: constrained direction → zero strain, not zero stress.</p></details><details class="ex"><summary>T2.11 Sample MST question</summary><p><b>Delta rosette 550, −100, 150 µ; E=110 GPa, ν=0.22, t=8 mm, σY=140 MPa (brittle).</b></p><p>(a) εx=550; εy=[2(−100+150)−550]/3=−150; γ=2(−100−150)/√3=−288.7. C=200; R=√(350²+144.3²)=378.6 → ε1=<b>579</b>, ε2=<b>−179 µε</b>. E/(1−ν²)=115 595 MPa: σ1=115 595(579−0.22×179)µ=<b>62.3 MPa</b>; σ2=115 595(−179+0.22×579)µ=<b>−5.9 MPa</b>.</p><p>(b) Gauge 4 normal to gauge 1 (90°); star gauges 4, 5, 6 are at 90°, 30°, −30° (60° apart, clockwise from gauge 4): gauge 4=εy=<b>−150</b>; gauge 5 (30°)=C+D cos60°+(γ/2) sin60°=200+175−125=<b>250</b>; gauge 6 (−30°)=C+D cos(−60°)+(γ/2) sin(−60°)=200+175+125=<b>500 µε</b>.</p><p>(c) Brittle → Rankine: SF=140/62.3=<b>2.2</b>. θp=½tan⁻¹(−288.7/700)=−11.2°, so σ1 is 11.2° cw from gauge 1; the plane under max tension is ⟂ to that: <b>79° ccw from gauge 1</b>.</p><p>(d) εz=−ν(σ1+σ2)/E=−0.22(56.4)/110 000=−112.8µ → Δt=8×(−112.8µ)=<b>−0.90×10⁻³ mm</b> (decrease).</p><p class="tip">Tip: this is the exam style. Show rosette conversion, Mohr values, stresses, criterion, then the plane.</p></details></section></main><script>const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const N=(id)=>parseFloat($('#'+id).value);
+const f=(x,d=2)=>Number.isFinite(x)?(+x.toFixed(d)).toString():'—';
+const SECS=[['fund','Fundamentals'],['lav','Length/Area/Volume'],['mohr',"Mohr's Circle"],['gauge','Strain Gauges'],['ss','Stress–Strain'],['calc','Calculators'],['exam','Worked Examples'],['prac','Practice'],['form','Formulas'],['tut','Tutorial 2']];
+let prog={};try{prog=JSON.parse(localStorage.getItem('strainProg')||'{}')}catch(e){}
+const save=()=>{try{localStorage.setItem('strainProg',JSON.stringify(prog))}catch(e){}};
+function math(){if(window.renderMathInElement)renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})}
+function showProg(){const d=SECS.filter(s=>prog[s[0]]).length;$('#pbar').style.width=100*d/SECS.length+'%';$('#ptext').textContent=d+' of '+SECS.length+' sections complete';
+$('#plist').innerHTML=SECS.map(s=>`<a href="#${s[0]}" class="${prog[s[0]]?'done':''}">${prog[s[0]]?'✔':'○'} ${s[1]}</a>`).join(' · ');
+$$('.mk').forEach(b=>b.textContent=prog[b.dataset.id]?'✔ Completed (click to undo)':'Mark section complete')}
+SECS.forEach(([id])=>{const b=document.createElement('button');b.className='mk btn alt';b.dataset.id=id;b.onclick=()=>{prog[id]=!prog[id];save();showProg()};$('#'+id).append(b)});
+function route(){const id=(location.hash||'#home').slice(1);const t=$('#'+id)?id:'home';$$('section').forEach(s=>s.classList.toggle('on',s.id===t));$$('#nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+t));$('#nav').classList.remove('open');scrollTo(0,0);showProg();math();if(t==='mohr')drawM()}
+addEventListener('hashchange',route);$('#menu').onclick=()=>$('#nav').classList.toggle('open');
+
+/* Mohr's circle (values in microstrain). Vertical axis = gamma/2, up = positive. */
+function mohrCalc(ex,ey,g){const C=(ex+ey)/2,h=g/2,R=Math.hypot((ex-ey)/2,h);const tp=0.5*Math.atan2(g,ex-ey)*180/Math.PI;return{C,h,R,e1:C+R,e2:C-R,gmax:2*R,tp,ts:tp+45}}
+function mohrSVG(ex,ey,g,st,ann=true){const m=mohrCalc(ex,ey,g),R=m.R||1;const s=Math.min(125/R,175/(Math.abs(m.C)+R)),x0=200-(m.C-0)*s*0+0,ox=200-m.C*s,oy=150;
+const X=e=>ox+e*s,Y=v=>oy-v*s;let o='';const T=(x,y,t,c='#124')=>ann?`<text x="${x}" y="${y}" fill="${c}">${t}</text>`:'';
+if(st>=1)o+=`<line x1="10" x2="390" y1="${oy}" y2="${oy}" stroke="#333"/><line x1="${ox}" x2="${ox}" y1="10" y2="290" stroke="#333"/>`+T(370,oy-5,'ε')+T(ox+4,20,'γ/2');
+if(st>=2)o+=`<circle cx="${X(m.C)}" cy="${oy}" r="4" fill="#c33"/>`+T(X(m.C)-6,oy+16,'C='+f(m.C),'#c33');
+if(st>=3)o+=`<line x1="${X(ex)}" y1="${Y(m.h)}" x2="${X(ey)}" y2="${Y(-m.h)}" stroke="#888" stroke-dasharray="4"/><circle cx="${X(ex)}" cy="${Y(m.h)}" r="4" fill="#2a5a9a"/><circle cx="${X(ey)}" cy="${Y(-m.h)}" r="4" fill="#2a5a9a"/>`+T(X(ex)+6,Y(m.h)-6,`A(${f(ex)}, ${f(m.h)})`)+T(X(ey)+6,Y(-m.h)+14,`B(${f(ey)}, ${f(-m.h)})`);
+if(st>=4)o+=`<line x1="${X(m.C)}" y1="${oy}" x2="${X(ex)}" y2="${Y(m.h)}" stroke="#c33"/>`+T((X(m.C)+X(ex))/2+4,(oy+Y(m.h))/2,'R='+f(m.R),'#c33');
+if(st>=5)o+=`<circle cx="${X(m.C)}" cy="${oy}" r="${m.R*s}" fill="rgba(42,127,212,.08)" stroke="#2a7fd4" stroke-width="2"/>`;
+if(st>=6)o+=`<circle cx="${X(m.e1)}" cy="${oy}" r="4" fill="#1a7f3c"/><circle cx="${X(m.e2)}" cy="${oy}" r="4" fill="#1a7f3c"/>`+T(X(m.e1)-10,oy-8,'ε1='+f(m.e1),'#1a7f3c')+T(X(m.e2)-30,oy+16,'ε2='+f(m.e2),'#1a7f3c');
+if(st>=7)o+=`<circle cx="${X(m.C)}" cy="${Y(m.R)}" r="4" fill="#e87"/><circle cx="${X(m.C)}" cy="${Y(-m.R)}" r="4" fill="#e87"/>`+T(X(m.C)+6,Y(m.R)-6,'γ/2max=R='+f(m.R),'#c60');
+return o}
+const MS=[['Axes','Horizontal = direct strain ε. Vertical = γ/2 (half the engineering shear strain, because the circle uses tensor shear). Up = positive.'],
+['Centre','C = (εx+εy)/2 = (400+100)/2 = 250 ×10⁻⁶. It sits on the ε axis.'],
+['Plot A and B','A = (εx, +γxy/2) = (400, 150); B = (εy, −γxy/2) = (100, −150). They are opposite ends of a diameter, so the line AB passes through C.'],
+['Radius','R = √[((400−100)/2)² + (300/2)²] = √(150²+150²) = 212.13. This is the distance from C to A.'],
+['Draw the circle','With compass on C and radius R, draw the full circle through A and B.'],
+['Principal strains','Where the circle crosses the ε axis, γ/2 = 0 (no shear): ε1 = C+R = 462.13, ε2 = C−R = 37.87 (×10⁻⁶).'],
+['Max shear','Top/bottom of the circle: γ/2 = R, so engineering γmax = 2R = 424.26. (Tensor max shear = R.) Normal strain there = C = 250.']];
+let ms=1;function drawM(){$('#msvg').innerHTML=mohrSVG(400,100,300,ms,$('#mann').checked);$('#mt').textContent=`Step ${ms}/7: ${MS[ms-1][0]}`;$('#mx').textContent=MS[ms-1][1]}
+$('#mnext').onclick=()=>{ms=Math.min(7,ms+1);drawM()};$('#mprev').onclick=()=>{ms=Math.max(1,ms-1);drawM()};
+$('#mreplay').onclick=()=>{ms=1;drawM();const t=setInterval(()=>{if(ms>=7)return clearInterval(t);ms++;drawM()},1200)};$('#mann').onchange=drawM;
+
+/* sliders */
+function shear(){const a=+$('#shsl').value,d=80*Math.tan(a*Math.PI/180);$('#shp').setAttribute('points',`100,100 180,100 ${180+d},20 ${100+d},20`);$('#shv').textContent=`γ ≈ ${f(a*Math.PI/180,3)} rad (angle change, exaggerated)`}
+function area(){const v=+$('#arsl').value/100,ex=v,ey=-0.3*v;const r=$('#ar');r.setAttribute('width',100*(1+ex));r.setAttribute('height',80*(1+ey));$('#arv').textContent=`εx=${f(ex*100,1)}%, εy=${f(ey*100,1)}% (ν=0.3) → ΔA/A exact ${f(((1+ex)*(1+ey)-1)*100,2)}%, approx ${f((ex+ey)*100,2)}%`}
+$('#shsl').oninput=shear;$('#arsl').oninput=area;shear();area();
+
+/* calculators */
+function calcs(){
+const L=N('a1'),dL=N('a2');$('#ao').textContent=L>0?`ε = ${f(dL/L,6)}  (${f(dL/L*1e6,1)} µε)\n% strain = ${f(dL/L*100,4)} %\nFinal length = ${f(L+dL,4)}`:'Enter L > 0';
+const L2=N('b1'),e2=N('b2')*1e-6;$('#bo').textContent=L2>0?`ΔL = εL = ${f(e2*L2,4)}\nFinal length = ${f(L2+e2*L2,4)}`:'Enter L > 0';
+const a=N('c1'),b=N('c2'),c=N('c3'),ex=N('c4')*1e-6,ey=N('c5')*1e-6,ez=N('c6')*1e-6;
+if(a>0&&b>0&&c>0){const A=a*b,A2=a*(1+ex)*b*(1+ey),V=A*c,V2=A2*c*(1+ez);$('#co').textContent=`Area: ΔA ≈ (εx+εy)A = ${f((ex+ey)*A,4)} ; exact ΔA = ${f(A2-A,4)} ; final A = ${f(A2,3)}\nVolume: εv ≈ εx+εy+εz = ${f((ex+ey+ez)*1e6,1)} µε ; ΔV ≈ ${f((ex+ey+ez)*V,3)} ; exact ΔV = ${f(V2-V,3)} ; final V = ${f(V2,2)}\nSmall-strain approximation drops product terms (≈10⁻⁷ relative). Units: your length units squared/cubed.`}else $('#co').textContent='Dimensions must be > 0';
+const ex1=N('m1'),ey1=N('m2'),g=N('m3');if([ex1,ey1,g].every(Number.isFinite)){const m=mohrCalc(ex1,ey1,g);$('#csvg').innerHTML=mohrSVG(ex1,ey1,g,7);$('#mo').textContent=`Centre C = ${f(m.C)} µε   Radius R = ${f(m.R)} µε\nε1 = ${f(m.e1)}, ε2 = ${f(m.e2)} µε\nθp = ${f(m.tp)}° (ε1 direction from x, +ve = ccw)\nγmax = 2R = ${f(m.gmax)} µε at θ = ${f(m.ts)}° (45° from principal)`}
+const E=N('s1')*($('#su').value==='GPa'?1000:1),nu=N('s2'),p=N('s3'),q=N('s4'),r=N('s5');const A=$('#s0').value==='A';$('#sl').textContent=A?'εx, εy, γxy (µε):':'σx, σy, τxy (MPa):';
+if(!(E>0))return $('#so').textContent='Error: E must be > 0';if(!(nu>-1&&nu<0.5))return $('#so').textContent='Error: ν must be between −1 and 0.5';if(![p,q,r].every(Number.isFinite))return $('#so').textContent='Error: enter all three values';
+const G=E/(2*(1+nu));$('#so').textContent=A?(()=>{const k=E/(1-nu*nu);return`G = ${f(G,1)} MPa\nσx = ${f(k*(p+nu*q)*1e-6,2)} MPa\nσy = ${f(k*(q+nu*p)*1e-6,2)} MPa\nτxy = ${f(G*r*1e-6,2)} MPa`})():`G = ${f(G,1)} MPa\nεx = ${f((p-nu*q)/E*1e6,1)} µε\nεy = ${f((q-nu*p)/E*1e6,1)} µε\nγxy = ${f(r/G*1e6,1)} µε`}
+$$('input[type=number],select').forEach(i=>i.addEventListener('input',()=>{calcs();gauge()}));
+function gauge(){const GF=N('g1'),R=N('g2'),d=N('g3');$('#gout').textContent=GF>0&&R>0?`ΔR/R = ${f(d/R,6)}\nε = (ΔR/R)/GF = ${f(d/R/GF*1e6,1)} µε`:'GF and R must be > 0'}
+
+/* worked examples */
+const EX=[['Direct strain','A 250 mm bar shortens 0.16 mm. Find ε.','ε = ΔL/L (strain = change ÷ original).','ε = −0.16/250','= −0.00064','ε = −640 µε (compressive)','Keep the sign; use the same unit for ΔL and L.'],
+['Change in length','ε = −640 µε, L = 250 mm. Find ΔL.','ΔL = εL','ΔL = −640×10⁻⁶ × 250','= −0.16 mm','ΔL = −0.16 mm','Convert µε to 10⁻⁶ first.'],
+['Shear strain','Top of a 50 mm tall square moves 0.02 mm sideways. Find γ.','γ ≈ tan γ = displacement/height','γ = 0.02/50','= 0.0004 rad','γ = 400 µrad','Answer in radians; it is an angle change.'],
+['Area & volume','50 mm square bar, 250 mm long: ε_axial = −640 µ, lateral +200 µ each way.','ΔA/A ≈ εx+εy; ΔV/V ≈ εx+εy+εz','ΔA ≈ (200+200)×10⁻⁶ × 2500 = 1.0 mm²; ΔV ≈ (200+200−640)×10⁻⁶ × 625000','= −150 mm³','ΔA = +1 mm²; ΔV = −150 mm³ (decrease 150 mm³)','Say "small strain approximation".'],
+['Mohr circle','εx=400, εy=100, γxy=300 (×10⁻⁶). Draw circle.','C=(εx+εy)/2; R=√[((εx−εy)/2)²+(γ/2)²]','C=250; R=√(150²+150²)','A(400,150), B(100,−150)','Circle: centre 250, R = 212.13 (use the Mohr tutorial)','Label axes ε and γ/2. Plot γ/2, not γ.'],
+['Principal strains & planes','Same strains.','ε1,2 = C ± R; tan2θp = γ/(εx−εy)','ε1 = 250+212.13; ε2 = 250−212.13; tan2θp = 300/300 = 1','2θp = 45°','ε1 = 462 µε at 22.5° ccw from x; ε2 = 38 µε at 112.5°','Planes are θp, not 2θp. Check quadrant with signs of γ and (εx−εy).'],
+['Max shear strain','Same strains.','γmax = 2R (engineering)','γmax = 2×212.13','= 424.26','γmax = 424 µε at 45° from principal planes; ε = 250 there','Don\'t answer R by mistake — that is tensor shear.'],
+['Stress ↔ strain','E=200 GPa, ν=0.3. (i) εx=500, εy=200, γ=300 µ → stresses. (ii) σx=100, σy=50, τ=30 MPa → strains.','σx = E/(1−ν²)(εx+νεy) etc.; εx=(σx−νσy)/E; G = E/2(1+ν)=76.9 GPa','(i) 219.78 GPa × 560µ; ×350µ; 76.92 GPa × 300µ. (ii) (100−15)/200000 etc.','','(i) σx=123.1, σy=76.9, τ=23.1 MPa. (ii) εx=425, εy=100, γ=390 µ','Convert GPa→MPa (×1000). Never mix σz=0 plane stress with plane strain.']];
+$('#exlist').innerHTML=EX.map((e,i)=>`<details class="ex"><summary>Q${i+1}. ${e[0]}</summary><p><b>A. Understand:</b> ${e[1]}</p><p><b>B. Formula:</b> ${e[2]}</p><p><b>C/D. Substitute &amp; solve:</b> ${e[3]} ${e[4]}</p><p><b>E. Diagram:</b> sketch the element/circle with labels and directions.</p><p><b>F. Final answer:</b> <b>${e[5]}</b></p><p class="tip"><b>G. Exam tip:</b> ${e[6]}</p></details>`).join('');
+
+/* practice */
+const rnd=(a,b)=>Math.round(a+Math.random()*(b-a));let Q=null,hn=0,sc=[0,0];
+const gens={Easy:()=>{const L=rnd(100,500),e=rnd(2,9)*100,dL=L*e*1e-6;return{q:`A ${L} mm bar extends ${f(dL,4)} mm. Find the direct strain (µε).`,a:e,h:['ε = ΔL/L.',`Divide ${f(dL,4)} by ${L}, then ×10⁶.`],s:`ε = ${f(dL,4)}/${L} = ${e}×10⁻⁶`}},
+Medium:()=>{const ex=rnd(2,8)*100,ey=rnd(0,2)*100,g=rnd(1,4)*100,m=mohrCalc(ex,ey,g);return{q:`εx=${ex}, εy=${ey}, γxy=${g} (µε). Find principal strain ε1 (µε).`,a:m.e1,h:['ε1 = C + R.','C = (εx+εy)/2; R = √[((εx−εy)/2)²+(γ/2)²].'],s:`C=${f(m.C)}, R=${f(m.R)} → ε1=${f(m.e1)}`}},
+Hard:()=>{const E=200,nu=0.3,ex=rnd(3,8)*100,ey=rnd(1,3)*100,sx=E*1000/(1-nu*nu)*(ex+nu*ey)*1e-6;return{q:`Plane stress, E=200 GPa, ν=0.3, εx=${ex} µε, εy=${ey} µε. Find σx (MPa).`,a:sx,h:['σx = E/(1−ν²)(εx+νεy).','E = 200000 MPa; 1−ν² = 0.91.'],s:`σx = 200000/0.91 × (${ex}+0.3×${ey})×10⁻⁶ = ${f(sx,1)} MPa`}}};
+function newQ(){Q=gens[$('#plv').value]();hn=0;$('#pq').textContent=Q.q;$('#pa').value='';$('#pfb').textContent=''}
+$('#pnew').onclick=newQ;$('#plv').onchange=newQ;
+$('#phint').onclick=()=>{$('#pfb').textContent='Hint: '+Q.h[Math.min(hn++,Q.h.length-1)]};
+$('#pchk').onclick=()=>{const v=N('pa');if(!Number.isFinite(v))return $('#pfb').textContent='Enter a number first.';sc[1]++;const ok=Math.abs(v-Q.a)<=Math.max(0.01*Math.abs(Q.a),0.5);if(ok)sc[0]++;$('#psc').textContent=sc.join('/');$('#pfb').textContent=(ok?'✔ Correct. ':'✘ Not quite (answer '+f(Q.a,1)+'). ')+'Solution: '+Q.s};
+newQ();gauge();calcs();
+addEventListener('load',()=>{math();route()});route();
+</script></body></html>
